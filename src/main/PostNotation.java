@@ -4,9 +4,9 @@ import java.util.Stack;
 
 public class PostNotation {
 
-    private int N;
-    private String notation;
-    private int[] number;
+    private final int N;
+    private final String notation;
+    private final int[] number;
 
     public PostNotation(int N, String notation, int[] number) {
         this.N = N;
