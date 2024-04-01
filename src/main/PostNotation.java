@@ -43,6 +43,10 @@ public class PostNotation {
     }
 
     public static PostNotation getInstance(int N, String infixNotation, int[] number) {
+        return new PostNotation(N, convert(infixNotation), number);
+    }
+
+    private static String convert(String infixNotation) {
         StringBuilder res = new StringBuilder();
         Stack<Character> stack = new Stack<>();
         for(int i=0; i<infixNotation.length(); i++) {
@@ -73,7 +77,6 @@ public class PostNotation {
         while (!stack.isEmpty()) {
             res.append(stack.pop());
         }
-
-        return new PostNotation(N, res.toString(), number);
+        return res.toString();
     }
 }
