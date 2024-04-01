@@ -21,7 +21,7 @@ public class MainJava {
 
     public static void main(String[] args) {
         InputManager inputManager = new InputManager();
-        ArrayList<String> input = inputManager.getFileContents("input.txt");
+        ArrayList<String> input = inputManager.getInputs();
 
         int N = Integer.parseInt(input.get(0));
         String infixNotation = input.get(1);

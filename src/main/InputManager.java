@@ -5,23 +5,21 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class InputManager {
 
-    public ArrayList<String> getFileContents(String path) {
-        try {
-            File file = new File(path);
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-
-            ArrayList<String> input = new ArrayList<>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                input.add(line);
-            }
-            return input;
-        } catch (Exception e) {
-            return null;
+    public ArrayList<String> getInputs() {
+        ArrayList<String> inputs = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        String n = sc.nextLine();
+        int N = Integer.parseInt(n);
+        inputs.add(n);
+        inputs.add(sc.nextLine()); // infixNotation
+        for (int i=0; i<N; i++) {
+            inputs.add(sc.nextLine()); // operand value
         }
+        return inputs;
     }
 }
