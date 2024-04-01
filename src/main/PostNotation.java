@@ -36,7 +36,40 @@ public class PostNotation {
      */
     public int calcValue() {
         // TODO 후위 표기식과 각 피연산자에 대응하는 값들이 주어져 있을 때, 그 식을 계산하는 프로그램을 작성하시오.
-        return 0;
+        String postfix = notation;
+
+        int len = postfix.length();
+
+        Stack<Integer> stack = new Stack<>();
+
+        for(int idxPost=0; idxPost<len; idxPost++){
+            char unit = postfix.charAt(idxPost);
+            if(unit >= 'A' && unit <= 'Z'){
+                stack.push(getNumber(unit));
+            }
+            else{
+                int temp = 0;
+                int right = stack.pop();
+                int left = stack.pop();
+                switch(unit){
+                    case '+':
+                        temp = left + right;
+                        break;
+                    case '-':
+                        temp = left - right;
+                        break;
+                    case '*':
+                        temp = left * right;
+                        break;
+                    case '/':
+                        temp = left / right;
+                        break;
+                }
+                stack.push(temp);
+            }
+
+        }
+        return stack.pop();
     }
 
     private int getNumber(char alphabet) {
