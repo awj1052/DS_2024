@@ -8,7 +8,7 @@ public class PostNotation {
     private String notation;
     private int[] number;
 
-    private PostNotation(int N, String notation, int[] number) {
+    public PostNotation(int N, String notation, int[] number) {
         this.N = N;
         this.notation = notation;
         this.number = number;
@@ -20,6 +20,7 @@ public class PostNotation {
      *  <p>getNumber(char alphabet) 메소드를 활용하여 calcValue()를 완성하면 됩니다.</p>
      *  <p>src/test/PostNotationTest 에서 테스트 결과를 확인하거나,</p>
      *  <p>MainJava를 실행하여 임의의 중위 표기식 입력으로 결과값을 확인하면 됩니다.</p>
+     *  <p>연산자는 모두 4가지로 +,-,*,/ 가 주어지며 나눗셈 연산은 소숫점을 버립니다.</p>
      *  <p></p>
      *  <p>예제 입력</p>
      *  <p>5</p>
@@ -42,11 +43,7 @@ public class PostNotation {
         return number[alphabet - 'A'];
     }
 
-    public static PostNotation getInstance(int N, String infixNotation, int[] number) {
-        return new PostNotation(N, convert(infixNotation), number);
-    }
-
-    private static String convert(String infixNotation) {
+    public static String convert(String infixNotation) {
         StringBuilder res = new StringBuilder();
         Stack<Character> stack = new Stack<>();
         for(int i=0; i<infixNotation.length(); i++) {
