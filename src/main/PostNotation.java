@@ -36,7 +36,38 @@ public class PostNotation {
      */
     public int calcValue() {
         // TODO 후위 표기식과 각 피연산자에 대응하는 값들이 주어져 있을 때, 그 식을 계산하는 프로그램을 작성하시오.
-        return 0;
+        Stack<Integer> stack = new Stack<>();
+
+        int length = notation.length();
+        for(int i=0; i<length; i++) {
+            char data = notation.charAt(i);
+            if(data >= 'A' && data <= 'Z')
+                stack.add(getNumber(data));
+            else {
+                int num2 = stack.pop();
+                int num1 = stack.pop();
+                int res = 0;
+
+                switch(data){
+                    case '+':
+                        res = num1 + num2;
+                        break;
+                    case '-':
+                        res = num1 - num2;
+                        break;
+                    case '*':
+                        res = num1 * num2;
+                        break;
+                    case '/':
+                        res = num1 / num2;
+                        break;
+                }
+
+                stack.add(res);
+            }
+        }
+
+        return stack.pop();
     }
 
     private int getNumber(char alphabet) {
