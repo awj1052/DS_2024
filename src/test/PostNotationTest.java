@@ -4,94 +4,51 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostNotationTest {
 
-    @Test
-    void example01() {
+    void TestPostNotation(String infixNotation, int[] number, int answer){
         //given
-        int N = 3;
-        String notation = PostNotation.convert("C*(A+B)");
-        int[] number = {2, 3, 4};
-        PostNotation postNotation = new PostNotation(N, notation, number);
+        String notation = PostNotation.convert(infixNotation);
+        PostNotation postNotation = new PostNotation(notation, number);
 
         //when
         int value = postNotation.calcValue();
 
         //then
-        assertThat(value).isEqualTo(20);
+        assertThat(value).isEqualTo(answer);
+    }
+
+    @Test
+    void example01() {
+        TestPostNotation("C*(A+B)", new int[]{2, 3, 4}, 20);
     }
 
     @Test
     void example02() {
-        //given
-        int N = 5;
-        String notation = PostNotation.convert("C/(B-A)*(D+E)");
-        int[] number = {1, 3, 4, 3, 5};
-        PostNotation postNotation = new PostNotation(N, notation, number);
-
-        //when
-        int value = postNotation.calcValue();
-
-        //then
-        assertThat(value).isEqualTo(16);
+        TestPostNotation("C/(B-A)*(D+E)", new int[]{1, 3, 4, 3, 5}, 16);
     }
 
     @Test
     void example03() {
-        //given
-        int N = 4;
-        String notation = PostNotation.convert("(A+B)/(C-D)");
-        int[] number = {1, 4, 5, 3};
-        PostNotation postNotation = new PostNotation(N, notation, number);
-
-        //when
-        int value = postNotation.calcValue();
-
-        //then
-        assertThat(value).isEqualTo(2);
+        TestPostNotation("(A+B)/(C-D)", new int[]{1, 4, 5, 3}, 2);
     }
 
     @Test
     void example04() {
-        //given
-        int N = 3;
-        String notation = PostNotation.convert("(A*(B+C)+D)/E");
-        int[] number = {2, 3, 4, 6, 6};
-        PostNotation postNotation = new PostNotation(N, notation, number);
-
-        //when
-        int value = postNotation.calcValue();
-
-        //then
-        assertThat(value).isEqualTo(3);
+        TestPostNotation("(A*(B+C)+D)/E", new int[]{2, 3, 4, 6, 6}, 3);
     }
 
     @Test
     void example05() {
-        //given
-        int N = 3;
-        String notation = PostNotation.convert("(D+A*(B+C))/E");
-        int[] number = {2, 3, 4, 6, 6};
-        PostNotation postNotation = new PostNotation(N, notation, number);
-
-        //when
-        int value = postNotation.calcValue();
-
-        //then
-        assertThat(value).isEqualTo(3);
+        TestPostNotation("(D+A*(B+C))/E", new int[]{2, 3, 4, 6, 6}, 3);
     }
 
 
     @Test
     void example06() {
-        //given
-        int N = 3;
-        String notation = PostNotation.convert("(D+(B+C)*A)/E");
-        int[] number = {2, 3, 4, 6, 6};
-        PostNotation postNotation = new PostNotation(N, notation, number);
+        TestPostNotation("(D+(B+C)*A)/E", new int[]{2, 3, 4, 6, 6}, 3);
+    }
 
-        //when
-        int value = postNotation.calcValue();
-
-        //then
-        assertThat(value).isEqualTo(3);
+    @Test
+    void example07() {
+        TestPostNotation("A*((B*C)*D)*E", new int[]{13, 7, 99, 41, 37}, 13666653);
     }
 }

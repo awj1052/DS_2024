@@ -3,13 +3,10 @@ package main;
 import java.util.Stack;
 
 public class PostNotation {
-
-    private final int N;
     private final String notation;
     private final int[] number;
 
-    public PostNotation(int N, String notation, int[] number) {
-        this.N = N;
+    public PostNotation(String notation, int[] number) {
         this.notation = notation;
         this.number = number;
     }
@@ -36,7 +33,33 @@ public class PostNotation {
      */
     public int calcValue() {
         // TODO 후위 표기식과 각 피연산자에 대응하는 값들이 주어져 있을 때, 그 식을 계산하는 프로그램을 작성하시오.
-        return 0;
+        var stack = new Stack<Integer>();
+        int a, b;
+        for (int i = 0; i < notation.length(); i++){
+            char ch = notation.charAt(i);
+            switch (ch){
+                case '+':
+                    b = stack.pop(); a = stack.pop();
+                    stack.push(a + b);
+                    break;
+                case '-':
+                    b = stack.pop(); a = stack.pop();
+                    stack.push(a - b);
+                    break;
+                case '*':
+                    b = stack.pop(); a = stack.pop();
+                    stack.push(a * b);
+                    break;
+                case '/':
+                    b = stack.pop(); a = stack.pop();
+                    stack.push(a / b);
+                    break;
+                default:
+                    stack.push(getNumber(ch));
+                    break;
+            }
+        }
+        return stack.pop();
     }
 
     private int getNumber(char alphabet) {

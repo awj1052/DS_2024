@@ -15,7 +15,7 @@ public class MainJava {
             number[i] = Integer.parseInt(input.get(i+2));
         }
         String notation = PostNotation.convert(infixNotation);
-        PostNotation postNotation = new PostNotation(N, notation, number);
+        PostNotation postNotation = new PostNotation(notation, number);
         System.out.println(postNotation.calcValue());
     }
 }
