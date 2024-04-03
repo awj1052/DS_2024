@@ -32,6 +32,7 @@ public class ArrList<E> {
      */
     private void resize(int newSize) {
         // TODO resize 함수를 완성하시오.
+        // 수정 테스트
     }
 
     public E deleteLast() {
