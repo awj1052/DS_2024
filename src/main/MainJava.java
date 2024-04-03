@@ -10,16 +10,19 @@ public class MainJava {
         ArrayList<String> input = inputManager.getInputs();
 
         int N = Integer.parseInt(input.get(0));
-        int[] inputs = Arrays.stream(input.get(1).split(" "))
+        int[] inserts = Arrays.stream(input.get(1).split(" "))
                 .mapToInt(Integer::parseInt)
                 .toArray();
-        int deleteCnt = Integer.parseInt(input.get(2));
-
-        ArrList<Integer> list = new ArrList<>();
-        for(int e : inputs) {
+        int[] deletes = Arrays.stream(input.get(1).split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        CDList<Integer> list = new CDList<>();
+        for(int e : inserts) {
             list.insertLast(e);
         }
-        while(deleteCnt-->0) list.deleteLast();
+        for(int e : deletes) {
+            list.delete(e);
+        }
         System.out.println(list.printall());
     }
 }

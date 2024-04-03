@@ -1,1 +1,1 @@
-- 자료구조에서 배우는 ArrayList resize 과제입니다.
+- 자료구조에서 배우는 Circular Doubly LinkedList 추가 구현 과제입니다.
