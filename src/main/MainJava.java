@@ -9,8 +9,7 @@ public class MainJava {
         InputManager inputManager = new InputManager();
         ArrayList<String> input = inputManager.getInputs();
 
-        int N = Integer.parseInt(input.get(0));
-        int[] inserts = Arrays.stream(input.get(1).split(" "))
+        int[] inserts = Arrays.stream(input.get(0).split(" "))
                 .mapToInt(Integer::parseInt)
                 .toArray();
         int[] deletes = Arrays.stream(input.get(1).split(" "))
