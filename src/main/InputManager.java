@@ -8,13 +8,9 @@ public class InputManager {
     public ArrayList<String> getInputs() {
         ArrayList<String> inputs = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        String n = sc.nextLine();
-        int N = Integer.parseInt(n);
-        inputs.add(n);
-        inputs.add(sc.nextLine()); // infixNotation
-        for (int i=0; i<N; i++) {
-            inputs.add(sc.nextLine()); // operand value
-        }
+        inputs.add(sc.nextLine()); // List size
+        inputs.add(sc.nextLine()); // List item
+        inputs.add(sc.nextLine()); // deleteLast count
         return inputs;
     }
 }

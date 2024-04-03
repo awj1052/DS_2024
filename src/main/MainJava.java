@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainJava {
 
@@ -9,13 +10,16 @@ public class MainJava {
         ArrayList<String> input = inputManager.getInputs();
 
         int N = Integer.parseInt(input.get(0));
-        String infixNotation = input.get(1);
-        int[] number = new int[N];
-        for (int i=0; i<N; i++) {
-            number[i] = Integer.parseInt(input.get(i+2));
+        int[] inputs = Arrays.stream(input.get(1).split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        int deleteCnt = Integer.parseInt(input.get(2));
+
+        ArrList<Integer> list = new ArrList<>();
+        for(int e : inputs) {
+            list.insertLast(e);
         }
-        String notation = PostNotation.convert(infixNotation);
-        PostNotation postNotation = new PostNotation(N, notation, number);
-        System.out.println(postNotation.calcValue());
+        while(deleteCnt-->0) list.deleteLast();
+        System.out.println(list.printall());
     }
 }
