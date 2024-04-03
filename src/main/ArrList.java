@@ -32,7 +32,12 @@ public class ArrList<E> {
      */
     private void resize(int newSize) {
         // TODO resize 함수를 완성하시오.
-        // 수정 테스트
+        var newArr = new Object[newSize];
+        int len = Math.min(newSize, size);
+        for (int i = 0; i < len; i++){
+            newArr[i] = a[i];
+        }
+        a = (E[])newArr;
     }
 
     public E deleteLast() {
