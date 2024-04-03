@@ -32,6 +32,17 @@ public class ArrList<E> {
      */
     private void resize(int newSize) {
         // TODO resize 함수를 완성하시오.
+        /**
+         * newsize만큼의 object배열을 생성해줍니다
+         * 그것을 제네릭 배열에 넣어주는데 object는 조상이므로 형번환을 해서 넣어줍니다
+         * 이후 처음 인덱스부터 차례대로 복사해주고
+         * 주소를 바꿔줍니다
+         */
+        E newarr[] = (E[]) new Object[newSize];
+        for (int i = 0; i < size; i++) {
+            newarr[i] = a[i];
+        }
+        a = newarr;
     }
 
     public E deleteLast() {
