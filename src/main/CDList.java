@@ -1,5 +1,7 @@
 package main;
 
+import org.w3c.dom.Node;
+
 import java.util.NoSuchElementException;
 
 public class CDList<E> {
@@ -31,45 +33,91 @@ public class CDList<E> {
     public boolean isEmpty() {
         // TODO CDList가 비어있는지 여부를 반환하시오.
         if (size == 0) return true;
-        return false;
+        else return false;
     }
 
     public void insert(int index, E newItem) {
         // TODO index가 올바르지 않을 때 IndexOutOfBoundsException 예외를 발생시키시오.
         if (index < 0 || size < index) throw new IndexOutOfBoundsException();
+
         // TODO head가 0번째 일 때 index번 째에 newItem 값을 삽입하도록 구현하시오.
-        if (size == 0) {
-            head = new DNode<E>(newItem);
+        if (isEmpty()) {
+            DNode<E> temp = new DNode<E>(newItem);
+            head = temp;
+            temp.setNext(temp);
+            temp.setPrevious(temp);
             size++;
         } else {
-            DNode<E> temp = head;
-            int i = 0;
-            while (index == i) {
-                temp = temp.getNext();
-                i++;
+            if (index == 0) {
+                DNode<E> preNode = head.getPrevious();
+                DNode<E> nextNode = head;
+                DNode<E> nowNode = new DNode<E>(newItem);
+
+                nowNode.setNext(nextNode);
+                preNode.setNext(nowNode);
+                nowNode.setPrevious(preNode);
+                nextNode.setPrevious(nowNode);
+
+                head = nowNode;
+                size++;
+            }else {
+                DNode<E> preNode = head;
+                int i = 1;
+                while (index != i) {
+                    preNode = preNode.getNext();
+                    i++;
+                }
+                //지금 prenode는 index전 노드
+                DNode<E> nextNode = preNode.getNext();
+                DNode<E> nowNode = new DNode<E>(newItem);
+                //앞 현재 뒤 노드 설정 완
+                nowNode.setNext(nextNode);
+                preNode.setNext(nowNode);
+                nowNode.setPrevious(preNode);
+                nextNode.setPrevious(nowNode);
+                size++;
             }
-            DNode<E> nextNode = temp.getNext();
-            DNode<E> nowNode = new DNode<E>(newItem);
-            nowNode.setNext(nextNode);
-            temp.setNext(nowNode);
         }
     }
 
     public E delete(int index) {
-        // TODO index가 올바르지 않을 때 IndexOutOfBoundsException 예외를 발생시키시오.
-        if (index < 0 || size < index) throw new IndexOutOfBoundsException();
         // TODO 리스트가 비어있을 때 NoSuchElementException 예외를 발생시키시오.
         if (isEmpty()) throw new NoSuchElementException();
+        // TODO index가 올바르지 않을 때 IndexOutOfBoundsException 예외를 발생시키시오.
+        if (index < 0 || size <= index) throw new IndexOutOfBoundsException();
+
+
         // TODO head가 0번째 일 때 index번 째의 노드의 data를 반환하고 삭제하시오.
-        if (size == 0) {
-            DNode<E> temp = head;
+        DNode<E> temp;
+        if (size == 1) {
+            temp = head;
             head = null;
-            return temp.getData();
         } else {
+            if (index == 0) {
+                temp = head;
+                DNode<E> preNode = head.getPrevious();
+                DNode<E> nextNode = head.getNext();
 
+                preNode.setNext(nextNode);
+                nextNode.setPrevious(preNode);
+                head = nextNode;
+            }else {
+                DNode<E> nowNode = head;
+                int i = 0;
+                while (index != i) {
+                    nowNode = nowNode.getNext();
+                    i++;
+                }
+                DNode<E> preNode = nowNode.getPrevious();
+                DNode<E> nextNode = nowNode.getNext();
+
+                preNode.setNext(nextNode);
+                nextNode.setPrevious(preNode);
+                temp = nowNode;
+            }
         }
-
-        return null;
+        size--;
+        return temp.getData();
     }
 
     public String printall() {
