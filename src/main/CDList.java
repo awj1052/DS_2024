@@ -33,6 +33,11 @@ public class CDList<E> {
         return size == 0;
     }
 
+    private void connect(DNode<E> start, DNode<E> dest){
+        start.setNext(dest);
+        dest.setPrevious(start);
+    }
+
     public void insert(int index, E newItem) {
         // TODO head가 0번째 일 때 index번 째에 newItem 값을 삽입하도록 구현하시오.
         // TODO index가 올바르지 않을 때 IndexOutOfBoundsException 예외를 발생시키시오.
@@ -48,8 +53,9 @@ public class CDList<E> {
         for (int i = 0; i < index - 1; ++i){
             p = p.getNext();
         }
-        newNode.setNext(p.getNext());
-        p.setNext(newNode);
+        var nextNode = p.getNext();
+        connect(p, newNode);
+        connect(newNode, nextNode);
         ++size;
     }
 
@@ -57,10 +63,13 @@ public class CDList<E> {
         var nextNode = head;
         head = newNode;
         if (nextNode != null){
-            head.setNext(nextNode);
+            connect(nextNode.getPrevious(), head);
+            connect(head, nextNode);
+        }
+        else{
+            connect(head, head);
         }
         ++size;
-        return;
     }
 
     public E delete(int index) {
@@ -80,14 +89,19 @@ public class CDList<E> {
             p = p.getNext();
         }
         var res = p.getNext();
-        p.setNext(res.getNext());
+        var prev = res.getPrevious();
+        var next = res.getNext();
+        connect(prev, next);
         --size;
         return res.getData();
     }
 
     private E deleteFront() {
         var res = head;
-        head = res.getNext();
+        var prev = res.getPrevious();
+        var next = res.getNext();
+        next = head;
+        connect(prev, next);
         --size;
         return res.getData();
     }
