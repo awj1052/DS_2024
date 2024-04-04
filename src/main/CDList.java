@@ -73,13 +73,19 @@ public class CDList<E> {
     }
 
     public String printall() {
-        StringBuilder res = new StringBuilder();
+        String[] res = new String[size];
         DNode<E> p = head;
-        for (int i = 0; i < size; i++) {
-            res.append(p.getData()).append(" ");
+        int i;
+        for (i = 0; i < size/2; i++) {
+            res[i] = p.getData().toString();
             p = p.getNext();
         }
-        return res.toString();
+        p = head;
+        for (int j = 0; j < size - i; j++) {
+            p = p.getPrevious();
+            res[size - j - 1] = p.getData().toString();
+        }
+        return String.join(" ", res);
     }
 
     public void insertLast(E newItem) {

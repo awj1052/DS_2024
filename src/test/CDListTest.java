@@ -36,7 +36,7 @@ public class CDListTest {
         String result = list.printall();
 
         //then
-        assertThat(result).isEqualTo("99 0 1 2 3 4 ");
+        assertThat(result).isEqualTo("99 0 1 2 3 4");
     }
 
     @Test
@@ -82,12 +82,13 @@ public class CDListTest {
         list.insertLast("banana");
         list.insert(0, "cherry");
         list.insert(1, "orange");
+        list.delete(2);
 
         //when
         String result = list.printall();
 
         //then
-        assertThat(result).isEqualTo("cherry orange apple banana ");
+        assertThat(result).isEqualTo("cherry orange banana");
     }
 
     @Test
