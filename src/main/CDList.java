@@ -1,5 +1,7 @@
 package main;
 
+import java.util.NoSuchElementException;
+
 public class CDList<E> {
 
     private DNode<E> head;
@@ -28,19 +30,66 @@ public class CDList<E> {
 
     public boolean isEmpty() {
         // TODO CDList가 비어있는지 여부를 반환하시오.
-        return false;
+        return size == 0;
     }
 
     public void insert(int index, E newItem) {
         // TODO head가 0번째 일 때 index번 째에 newItem 값을 삽입하도록 구현하시오.
         // TODO index가 올바르지 않을 때 IndexOutOfBoundsException 예외를 발생시키시오.
+        if (size < index)
+            throw new IndexOutOfBoundsException();
+        var newNode = new DNode<>(newItem);
+        if (index == 0)
+        {
+            insertFront(newNode);
+            return;
+        }
+        var p = head;
+        for (int i = 0; i < index - 1; ++i){
+            p = p.getNext();
+        }
+        newNode.setNext(p.getNext());
+        p.setNext(newNode);
+        ++size;
+    }
+
+    private void insertFront(DNode<E> newNode) {
+        var nextNode = head;
+        head = newNode;
+        if (nextNode != null){
+            head.setNext(nextNode);
+        }
+        ++size;
+        return;
     }
 
     public E delete(int index) {
         // TODO head가 0번째 일 때 index번 째의 노드의 data를 반환하고 삭제하시오.
         // TODO 리스트가 비어있을 때 NoSuchElementException 예외를 발생시키시오.
         // TODO index가 올바르지 않을 때 IndexOutOfBoundsException 예외를 발생시키시오.
-        return null;
+        if (isEmpty())
+            throw new NoSuchElementException();
+        if (size <= index){
+            throw new IndexOutOfBoundsException();
+        }
+        if (index == 0){
+            return deleteFront();
+        }
+        var p = head;
+        for (int i = 0; i < index - 1; ++i) {
+            p = p.getNext();
+        }
+        var res = p.getNext();
+        p.setNext(res.getNext());
+        --size;
+        return res.getData();
+    }
+
+    private E deleteFront() {
+        var res = head;
+        head = res.getNext();
+        --size;
+        return res.getData();
     }
 
     public String printall() {
