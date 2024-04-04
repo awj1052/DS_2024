@@ -34,6 +34,7 @@ public class CDList<E> {
     public void insert(int index, E newItem) {
         // TODO head가 0번째 일 때 index번 째에 newItem 값을 삽입하도록 구현하시오.
         // TODO index가 올바르지 않을 때 IndexOutOfBoundsException 예외를 발생시키시오.
+        // 추가
     }
 
     public E delete(int index) {
