@@ -45,6 +45,8 @@ public class ArrayQueue<E> {
             newArr[i] = queue[after(front, i)];
         }
         queue = newArr;
+        rear = size;
+        front = 0;
     }
 
     public E remove() {
@@ -53,10 +55,11 @@ public class ArrayQueue<E> {
         // TODO 큐가 배열의 1/4만 사용하고 있다면, 길이를 resize()를 활용하여 절반으로 줄이시오
         if (isEmpty())
             throw new NoSuchElementException();
-        if (queue.length / 4 >= size)
+        if (queue.length >> 2 >= size)
             resize(queue.length >> 1);
-        var element = queue[after(front, 1)];
-        front++;
+        front = after(front, 1);
+        var element = queue[front];
+        queue[front] = null;
         size--;
         return element;
     }

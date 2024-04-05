@@ -26,7 +26,18 @@ public class Josephus {
      */
 
     public int[] solve() {
-        // TODO 요세푸스 문제를 해결하는 코드를 ArrayQueue를 사용하여 작성하시오
-        return null;
+        var q = new ArrayQueue<Integer>();
+        var res = new int[N];
+        for(int i = 1; i <= N; i++){
+            q.add(i);
+        }
+        for(int i = 0; i < N; i++){
+            for (int j = 0; j < K - 1; j++){
+                q.add(q.remove());
+            }
+            res[i] = q.remove();
+        }
+
+        return res;
     }
 }
