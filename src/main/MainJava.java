@@ -1,21 +1,15 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainJava {
 
     public static void main(String[] args) {
         InputManager inputManager = new InputManager();
         ArrayList<String> input = inputManager.getInputs();
-
-        int N = Integer.parseInt(input.get(0));
-        String infixNotation = input.get(1);
-        int[] number = new int[N];
-        for (int i=0; i<N; i++) {
-            number[i] = Integer.parseInt(input.get(i+2));
-        }
-        String notation = PostNotation.convert(infixNotation);
-        PostNotation postNotation = new PostNotation(N, notation, number);
-        System.out.println(postNotation.calcValue());
+        int[] inputs = Arrays.stream(input.get(0).split(" ")).mapToInt(Integer::parseInt).toArray();
+        Josephus josephus = new Josephus(inputs[0], inputs[1]);
+        Arrays.stream(josephus.solve()).forEach(e -> System.out.print(e + " "));
     }
 }
