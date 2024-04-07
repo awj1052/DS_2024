@@ -9,7 +9,7 @@ public class ArrayQueue<E> {
 
     /**
      * 자료구조 배포 PDF의 ArrayQueue 구현 문제입니다.
-     * 배열의 front는 항상 맨 처음 원소의 이전 index를 가르키고 rear는 마지막 원소의 index를 가르키도록 구현하세요.
+     * 배열의 front는 항상 맨 처음 원소의 이전 index를 가리키고 rear는 마지막 원소의 index를 가리키도록 구현하세요.
      * ArrayQueue 구현이 어렵지 않아 큐 활용 문제인 요세푸스 문제 요구사항 또한 완성하면 됩니다.
      * PR 날릴 때 작성한 코드에 대한 1줄 요약도 작성해주세요.
      */
