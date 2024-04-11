@@ -20,25 +20,48 @@ public class ArrayQueue<E> {
 
     public E element() {
         // TODO 큐의 맨 앞의 원소를 반환하는 코드를 작성하시오
+        int temp = front;
+        temp = (temp + 1) % queue.length;
         // TODO 큐가 비어있다면 NoSuchElementException 예외를 발생시키시오
-        return null;
+        if (isEmpty()) throw new NoSuchElementException();
+        return queue[temp];
     }
 
     public void add(E item) {
-        // TODO 큐에 item을 추가하는 코드를 작성하시오
         // TODO item이 null이라면 NullPointerException 예외를 발생시키시오
+        if (item == null) throw new NullPointerException();
+        // TODO 큐에 item을 추가하는 코드를 작성하시오
+        size++;
+        rear = (rear + 1) % queue.length;
+        queue[rear] = item;
         // TODO 큐가 꽉 차있으면 길이를 resize()를 활용하여 2배로 늘리시오
+        if (queue.length - 1 == size) resize(queue.length * 2);
     }
 
     private void resize(int newSize) {
         // TODO resize를 완성시키시오
+        E[] temp = (E[]) new Object[newSize];
+        for (int i = 1; i <= size; i++) {
+            temp[i] = queue[(front + i) % queue.length];
+        }
+        front = 0;
+        rear = size;
+        queue = temp;
     }
 
     public E remove() {
-        // TODO 큐에서 item을 반환하고 삭제하는 코드를 작성하시오
         // TODO 큐가 비어있다면 NoSuchElementException 예외를 발생시키시오
+        if (isEmpty()) throw new NoSuchElementException();
+
+        // TODO 큐에서 item을 반환하고 삭제하는 코드를 작성하시오
+        size--;
+        front = (front + 1) % queue.length;
+        E temp = queue[front];
+        queue[front] = null;
+
         // TODO 큐가 배열의 1/4만 사용하고 있다면, 길이를 resize()를 활용하여 절반으로 줄이시오
-        return null;
+        if (size * 4 == queue.length) resize(queue.length / 2);
+        return temp;
     }
 
     public int size() {

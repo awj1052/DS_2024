@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Arrays;
+
 public class Josephus {
 
     private final int N;
@@ -27,6 +29,22 @@ public class Josephus {
 
     public int[] solve() {
         // TODO 요세푸스 문제를 해결하는 코드를 ArrayQueue를 사용하여 작성하시오
-        return null;
+        ArrayQueue<Integer> aq = new ArrayQueue<>();
+        for (int i = 1; i <= N; i++) {
+            aq.add(i);
+        }
+        int[] result = new int[N];
+        int pointer = 0;
+        while (!aq.isEmpty()) {
+            for (int i = 1; i <= K; i++) {
+                if (K == i) {
+                    result[pointer++] = aq.remove();
+                }else {
+                    aq.add(aq.remove());
+                }
+            }
+        }
+
+        return result;
     }
 }
