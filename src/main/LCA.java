@@ -1,5 +1,7 @@
 package main;
 
+import java.util.*;
+
 public class LCA {
 
     private final BinaryTree<Integer> binaryTree;
@@ -27,6 +29,47 @@ public class LCA {
      */
     private int getLCA(int a, int b, Node<Integer> node) {
         // TODO item이 a와 b인 Node들의 최소 공통 조상 LCA의 item을 반환하는 코드를 작성하시오.
-        return 0;
+        var treeInfos = searchTree(node);
+        var aInfo = treeInfos.get(a);
+        var bInfo = treeInfos.get(b);
+        while (aInfo.depths != bInfo.depths){
+            if (aInfo.depths > bInfo.depths){
+                a = aInfo.parent.getItem();
+                aInfo = treeInfos.get(a);
+            } else {
+                b = bInfo.parent.getItem();
+                bInfo = treeInfos.get(b);
+            }
+        }
+        while (a != b){
+            a = aInfo.parent.getItem();
+            b = bInfo.parent.getItem();
+            aInfo = treeInfos.get(a);
+            bInfo = treeInfos.get(b);
+        }
+        return a;
+    }
+    private Dictionary<Integer, NodeInformation> searchTree(Node<Integer> root){
+        Dictionary<Integer, NodeInformation> res = new Hashtable<>();
+        res.put(root.getItem(), new NodeInformation(0, null));
+        searchTree(root, 1, res);
+        return res;
+    }
+    private void searchTree(Node<Integer> root, int curDepth, Dictionary<Integer, NodeInformation> outDict){
+        var left = root.getLeft();
+        var right = root.getRight();
+        if (left != null)
+        {
+            outDict.put(left.getItem(), new NodeInformation(curDepth, root));
+            searchTree(left, curDepth + 1, outDict);
+        }
+        if (right != null){
+            outDict.put(right.getItem(), new NodeInformation(curDepth, root));
+            searchTree(right, curDepth + 1, outDict);
+        }
+    }
+    
+    private record NodeInformation(int depths, Node<Integer> parent){
+        
     }
 }
