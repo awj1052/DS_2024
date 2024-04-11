@@ -19,11 +19,11 @@ public class ArrayQueue<E> {
     }
 
     public E element() {
+        // TODO 큐가 비어있다면 NoSuchElementException 예외를 발생시키시오
+        if (isEmpty()) throw new NoSuchElementException();
         // TODO 큐의 맨 앞의 원소를 반환하는 코드를 작성하시오
         int temp = front;
         temp = (temp + 1) % queue.length;
-        // TODO 큐가 비어있다면 NoSuchElementException 예외를 발생시키시오
-        if (isEmpty()) throw new NoSuchElementException();
         return queue[temp];
     }
 
