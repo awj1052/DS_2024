@@ -59,6 +59,8 @@ public class BinaryTreeTravel<Key extends Comparable<Key>> {
 
     private void levelOrder(Node<Key> node, List<Key> list) {
         // TODO java.util.Queue 와 자료구조 PDF를 참고하여 해당 메소드를 완성시키시오.
+        if (node == null)
+            return;
         Queue<Node<Key>> q = new ArrayDeque<>();
         q.add(node);
         while (!q.isEmpty()){
