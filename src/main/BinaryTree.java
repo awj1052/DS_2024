@@ -15,7 +15,7 @@ public class BinaryTree<Key extends Comparable<Key>> {
     private int size(Node<Key> node) {
         if (node == null) return 0;
         // TODO 반환값을 올바르게 작성하시오.
-        return 1;
+        return 1 + size(node.getLeft()) + size(node.getRight());
     }
 
     public int height() {
@@ -25,7 +25,8 @@ public class BinaryTree<Key extends Comparable<Key>> {
     private int height(Node<Key> node) {
         if (node == null) return 0;
         // TODO 반환값을 올바르게 작성하시오.
-        return 1;
+
+        return 1 + Math.max(height(node.getLeft()), height(node.getRight()));
     }
 
     public boolean isEqual(BinaryTree<Key> other) {
@@ -36,7 +37,7 @@ public class BinaryTree<Key extends Comparable<Key>> {
         if (node1 == null || node2 == null) return node1 == node2;
         if (node1.getItem().compareTo(node2.getItem()) != 0) return false;
         // TODO 반환값을 올바르게 작성하시오.
-        return false;
+        return isEqual(node1.getLeft(), node2.getLeft()) && isEqual(node1.getRight(), node2.getRight());
     }
 
     public boolean isEmpty() {

@@ -27,6 +27,24 @@ public class LCA {
      */
     private int getLCA(int a, int b, Node<Integer> node) {
         // TODO item이 a와 b인 Node들의 최소 공통 조상 LCA의 item을 반환하는 코드를 작성하시오.
-        return 0;
+
+        int left, right;
+        if (node.getLeft() == null) {
+            left = -1;
+        }else {
+            left = getLCA(a, b, node.getLeft());
+        }
+        if (node.getRight() == null) {
+            right = -1;
+        }else {
+            right = getLCA(a, b, node.getRight());
+        }
+
+        if (left == a && right == b) return node.getItem();
+        else if (right == a && left == b) return node.getItem();
+        else if (node.getItem() == a || node.getItem() == b) return node.getItem();
+        else if (left != -1) return left;
+        else if (right != -1) return right;
+        return -1;
     }
 }
