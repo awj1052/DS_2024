@@ -87,4 +87,18 @@ public class BinaryTreeTravelTest {
             assertThat(list.get(i)).isEqualTo(ans[i]);
         }
     }
+
+    @Test
+    @DisplayName("levelOrder 테스트2")
+    void example04() {
+        //given
+        BinaryTree<Integer> binaryTree = new BinaryTree<>(null);
+        BinaryTreeTravel<Integer> binaryTreeTravel = new BinaryTreeTravel<>(binaryTree);
+
+        //when
+        int size = binaryTreeTravel.levelOrder().size();
+
+        //then
+        assertThat(size).isEqualTo(0);
+    }
 }
