@@ -16,8 +16,16 @@ public class BST<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
     }
 
     private Node<Key, Value> put(Node<Key, Value> node, Key key, Value value) {
-        // TODO 해당 메소드를 완성하시오.
-        return null;
+        if (node == null)
+            return new Node<>(key, value);
+        var comparison = node.getKey().compareTo(key);
+        if (comparison > 0)
+            node.setRight(put(node.getRight(), key, value));
+        else if (comparison < 0)
+            node.setLeft(put(node.getLeft(), key, value));
+        else
+            node.setValue(value);
+        return node;
     }
 
     @Override
@@ -26,8 +34,21 @@ public class BST<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
     }
 
     public Node<Key, Value> delete(Node<Key, Value> node, Key key) {
-        // TODO 해당 메소드를 완성하시오.
-        return null;
+        if (node == null) return null;
+        var comparison = node.getKey().compareTo(key);
+        if (comparison > 0)
+            node.setRight(delete(node.getRight(), key));
+        else if (comparison < 0)
+            node.setLeft(delete(node.getLeft(), key));
+        else{
+            if (node.getRight() == null) return node.getLeft();
+            if (node.getLeft() == null) return node.getRight();
+            var toBeRemoved = node;
+            node = max(toBeRemoved.getRight());
+            node.setRight(deleteMax(toBeRemoved.getRight()));
+            node.setLeft(toBeRemoved.getLeft());
+        }
+        return node;
     }
 
     private Key max() {
@@ -42,8 +63,8 @@ public class BST<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
      * @return Key가 큰 노드
      */
     private Node<Key, Value> max(Node<Key, Value> node) {
-        // TODO 해당 메소드를 완성하시오.
-        return null;
+        if (node.getLeft() == null) return node;
+        return max(node.getLeft());
     }
 
     private void deleteMax() {
@@ -58,8 +79,9 @@ public class BST<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
      * @return node
      */
     private Node<Key, Value> deleteMax(Node<Key, Value> node) {
-        // TODO 해당 메소드를 완성하시오.
-        return null;
+        if (node.getLeft() == null) return node.getRight();
+        node.setLeft(deleteMax(node.getLeft()));
+        return node;
     }
 
     @Override
@@ -70,13 +92,16 @@ public class BST<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
     /**
      * this에 대해서 루트를 포함한 모든 자식 노드들의 레퍼런스가 다르지만,
      * <br/>Key와 Value가 동일한 새로운 BST를 만들려고 합니다.
-     * @param my 카피할 노드를 인자로 받습니다.
+     * @param orig 카피할 노드를 인자로 받습니다.
      * @return 카피된 노드를 반환합니다.
      * @see BST#delete
      */
-    private Node<Key, Value> copy(Node<Key, Value> my) {
-        // TODO 해당 메소드를 완성하시오.
-        return null;
+    private Node<Key, Value> copy(Node<Key, Value> orig) {
+        if (orig == null) return null;
+        var newNode = new Node<Key, Value>(orig.getKey(), orig.getValue());
+        newNode.setLeft(copy(orig.getLeft()));
+        newNode.setRight(copy(orig.getRight()));
+        return newNode;
     }
 
     @Override
@@ -85,8 +110,13 @@ public class BST<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
     }
 
     private Value get(Node<Key, Value> node, Key key) {
-        // TODO 해당 메소드를 완성하시오.
-        // TODO key가 존재하지 않는다면 null을 반환하시오.
-        return null;
+        if (node == null)
+            return null;
+        var comparison = node.getKey().compareTo(key);
+        if (comparison > 0)
+            return get(node.getRight(), key);
+        if (comparison < 0)
+            return get(node.getLeft(), key);
+        return node.getValue();
     }
 }
