@@ -27,6 +27,7 @@ public class BST<Key extends Comparable<Key>, Value> extends Tree<Key, Value> {
 
     public Node<Key, Value> delete(Node<Key, Value> node, Key key) {
         // TODO 해당 메소드를 완성하시오.
+        // TODO 강의 자료와 다르게 max와 deleteMax를 사용합시다.
         return null;
     }
 
