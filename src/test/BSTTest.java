@@ -4,8 +4,7 @@ import main.Node;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -77,7 +76,25 @@ public class BSTTest {
         //when
 
         //then
-        assertThat(copied.getRoot()).isNotEqualTo(bst.getRoot());
-        assertThat(copied.getRoot().getValue()).isEqualTo(bst.getRoot().getValue());
+
+        Queue<Pair<Node<Integer, String>, Node<Integer, String>>> q = new ArrayDeque<>();
+        q.add(new Pair<>(bst.getRoot(), copied.getRoot()));
+        while (!q.isEmpty()){
+            var p = q.poll();
+            assertThat(p.orig).isNotSameAs(p.copied);
+            var origLeft = p.orig.getLeft();
+            var copiedLeft = p.copied.getLeft();
+            var origRight = p.orig.getRight();
+            var copiedRight = p.copied.getRight();
+            if (origLeft != null && copiedLeft != null)
+                q.add(new Pair<>(origLeft, copiedLeft));
+            if (origRight != null && copiedRight != null)
+                q.add(new Pair<>(origRight, copiedRight));
+            assertThat((origLeft != null && copiedLeft == null) || (origLeft == null && copiedLeft != null)).isEqualTo(false);
+            assertThat((origRight != null && copiedRight == null) || (origRight == null && copiedRight != null)).isEqualTo(false);
+        }
+    }
+
+    private record Pair<T, K>(T orig, K copied){
     }
 }
