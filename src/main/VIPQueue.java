@@ -28,7 +28,7 @@ public class VIPQueue {
         Entry<Integer, Person>[] entries = new Entry[people.length+1];
         for(int i=0; i<people.length; i++) {
             // TODO Entry 생성자의 인자값을 올바르게 작성하시오.
-            entries[i+1] = new Entry<>(null, null);
+            entries[i+1] = new Entry<>(-people[i].prioirty(), people[i]);
         }
         return entries;
     }
@@ -38,7 +38,7 @@ public class VIPQueue {
      */
     public void add(Person person) {
         // TODO insert 의 인자값을 올바르게 작성하시오.
-        bHeap.insert(null, null);
+        bHeap.insert(-person.prioirty(), person);
     }
 
     public Person pop() {
